@@ -86,6 +86,30 @@ client::post_before(const beauty::duration& d, const std::string& url,
 
 // --------------------------------------------------------------------------
 client::client_response
+client::patch_before(const beauty::duration& d, const std::string& url,
+        std::string&& body)
+{
+    beauty::request request;
+    request.method(beast::http::verb::patch);
+    request.body() = std::move(body);
+
+    return send_request(std::move(request), d, url);
+}
+
+// --------------------------------------------------------------------------
+void
+client::patch_before(const beauty::duration& d, const std::string& url,
+        std::string&& body, client_cb&& cb)
+{
+    beauty::request request;
+    request.method(beast::http::verb::patch);
+    request.body() = std::move(body);
+
+    send_request(std::move(request), d, url, std::move(cb));
+}
+
+// --------------------------------------------------------------------------
+client::client_response
 client::put_before(const beauty::duration& d, const std::string& url,
         std::string&& body)
 {

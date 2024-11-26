@@ -148,6 +148,45 @@ public:
         post_before(std::chrono::milliseconds((int)(seconds * 1000)), url, "", std::move(cb));
     }
 
+    // -----
+    // PATCH
+    // -----
+    client_response
+    patch_before(const beauty::duration& d, const std::string& url, std::string&& body);
+    void patch_before(const beauty::duration& d, const std::string& url, std::string&& body, client_cb&& cb);
+
+    client_response
+    patch(const std::string& url, std::string&& body = "")
+    {
+        return patch_before(std::chrono::milliseconds(0), url, std::move(body));
+    }
+
+    void patch(const std::string& url, std::string&& body, client_cb&& cb)
+    {
+        patch_before(std::chrono::milliseconds(0), url, std::move(body), std::move(cb));
+    }
+
+    void patch(const std::string& url, client_cb&& cb)
+    {
+        patch_before(std::chrono::milliseconds(0), url, "", std::move(cb));
+    }
+
+    client_response
+    patch_before(double seconds, const std::string& url, std::string&& body = "")
+    {
+        return patch_before(std::chrono::milliseconds((int)(seconds * 1000)), url, std::move(body));
+    }
+
+    void patch_before(double seconds, const std::string& url, std::string&& body, client_cb&& cb)
+    {
+        patch_before(std::chrono::milliseconds((int)(seconds * 1000)), url, std::move(body), std::move(cb));
+    }
+
+    void patch_before(double seconds, const std::string& url, client_cb&& cb)
+    {
+        patch_before(std::chrono::milliseconds((int)(seconds * 1000)), url, "", std::move(cb));
+    }
+
     // ---
     // PUT
     // ---

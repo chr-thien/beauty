@@ -108,6 +108,23 @@ server::put(const std::string& path, const route_info& route_info, route_cb&& cb
 
 // --------------------------------------------------------------------------
 server&
+server::patch(const std::string& path, route_cb&& cb)
+{
+    return patch(path, {}, std::move(cb));
+}
+
+// --------------------------------------------------------------------------
+server&
+server::patch(const std::string& path, const route_info& route_info, route_cb&& cb)
+{
+    _router.add_route(
+            beast::http::verb::patch,
+            beauty::route(path, route_info, std::move(cb)));
+    return *this;
+}
+
+// --------------------------------------------------------------------------
+server&
 server::post(const std::string& path, route_cb&& cb)
 {
     return post(path, {}, std::move(cb));

@@ -70,7 +70,7 @@ private:
         // Make the connection on the IP address we get from a lookup
         beast::get_lowest_layer(_websocket).async_connect(
                 results,
-                [me = this->shared_from_this()](auto ec, auto&& ep) {
+                [me = this->shared_from_this()](auto ec, asio::ip::tcp::resolver::results_type::endpoint_type ep) {
                     me->on_connect(ec, ep);
                 });
     }

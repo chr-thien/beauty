@@ -336,37 +336,14 @@ cd build/examples/
 For those who want just a simple Makefile without bothering with dependency management,
 in the `docs` directory, there is an example of a simple one-shot Makefile to create a
 library archive to be used in another project. This Makefile must used (and moved) at the
-at the project root.
+project root.
 
-```makefile
-LIB  = libeauty.a
-OBJS = src/acceptor.o \
-       src/application.o \
-       src/attributes.o \
-       src/client.o \
-       src/exception.o \
-       src/route.o \
-       src/router.o \
-       src/server.o \
-       src/sha1.o \
-       src/signal.o \
-       src/swagger.o \
-       src/timer.o \
-       src/url.o \
-       src/utils.o
+There are a Makefile provided in the `docs` directory:
 
-.cpp.o:
-	g++ -std=c++17 -Wall -O2 -c -o $@ $< -I./include -I./build/include
-
-$(LIB): version.hpp $(OBJS)
-	ar -r $@ $(OBJS)
-
-version.hpp:
-	VERSION=1.0.4 envsubst < src/version.hpp.in > ./include/beauty/version.hpp
-
-clean:
-	rm -f libeauty.a ./src/*.o ./include/beauty/version.hpp
+```shell
+cd docs && make -j10 VERBOSE=1
 ```
+
 
 ### Windows
 

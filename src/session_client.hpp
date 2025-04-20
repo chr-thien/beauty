@@ -220,7 +220,12 @@ public:
                 results.begin(),
                 results.end(),
                 [me = this->shared_from_this()](const boost::system::error_code& ec,
-                        const asio::ip::tcp::resolver::iterator& it) {
+#if BOOST_VERSION >= 108700
+                const asio::ip::basic_resolver_iterator<asio::ip::tcp>& it
+#else
+                const asio::ip::tcp::resolver::iterator& it
+#endif
+                ) {
                     me->on_connect(ec);
                 }
             );
@@ -233,7 +238,12 @@ public:
                 results.begin(),
                 results.end(),
                 [me = this->shared_from_this()](const boost::system::error_code& ec,
-                        const asio::ip::tcp::resolver::iterator& it) {
+#if BOOST_VERSION >= 108700
+                const asio::ip::basic_resolver_iterator<asio::ip::tcp>& it
+#else
+                const asio::ip::tcp::resolver::iterator& it
+#endif
+                        ) {
                     me->on_connect(ec);
                 }
             );

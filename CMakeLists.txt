@@ -9,7 +9,7 @@ option(BEAUTY_ENABLE_OPENSSL "Enable OpenSSL support" OFF)
 option(BEAUTY_BUILD_EXAMPLES "Build examples" ON)
 option(BUILD_TESTING "Build tests" ON)
 
-find_package(Boost CONFIG REQUIRED)
+find_package(Boost CONFIG COMPONENTS json REQUIRED)
 if (BEAUTY_ENABLE_OPENSSL)
     find_package(OpenSSL CONFIG REQUIRED)
 endif()

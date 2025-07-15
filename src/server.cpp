@@ -46,11 +46,16 @@ server::listen(int port, const std::string& address)
         // Resolving synchronously because errors should be propagated directly to
         // the caller of listen()
         auto resolved = resolver.resolve(resolve_address, std::to_string(port));
-
+#if BOOST_VERSION >= 108800
+        for (const auto& entry : resolved) {
+          _endpoints.push_back(entry.endpoint());
+        }
+#else
         while (resolved != boost::asio::ip::tcp::resolver::iterator()) {
             _endpoints.push_back(resolved->endpoint());
             resolved++;
         }
+#endif
     }
 
     if (_endpoints.empty()) {

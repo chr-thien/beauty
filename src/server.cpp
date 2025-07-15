@@ -48,7 +48,7 @@ server::listen(int port, const std::string& address)
         auto resolved = resolver.resolve(resolve_address, std::to_string(port));
 #if BOOST_VERSION >= 108800
         for (const auto& entry : resolved) {
-          _endpoints.push_back(entry.endpoint());
+            _endpoints.push_back(entry.endpoint());
         }
 #else
         while (resolved != boost::asio::ip::tcp::resolver::iterator()) {

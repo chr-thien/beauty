@@ -138,7 +138,7 @@ TEST_CASE_FIXTURE(ClientFixture, "Get Synchronous Timeout ")
 
     SUBCASE("Timeout") {
         auto[ec, response] = client.get_before(250ms, "http://127.0.0.1:" + std::to_string(port) + "/index.html?delay=0.500");
-        CHECK_EQ(ec, boost::system::errc::timed_out);
+        CHECK_EQ(ec.value(), boost::system::errc::timed_out);
     }
 }
 
@@ -243,7 +243,7 @@ TEST_CASE_FIXTURE(ClientFixture, "Post synchronous Timeout ")
 
     SUBCASE("Timeout") {
         auto[ec, response] = client.post_before(250ms, "http://127.0.0.1:" + std::to_string(port) + "/index.html?delay=0.500", "I am the POST request body");
-        CHECK_EQ(ec, boost::system::errc::timed_out);
+        CHECK_EQ(ec.value(), boost::system::errc::timed_out);
     }
 }
 
@@ -270,7 +270,7 @@ TEST_CASE_FIXTURE(ClientFixture, "Put synchronous Timeout ")
 
     SUBCASE("Timeout") {
         auto[ec, response] = client.put_before(0.250, "http://127.0.0.1:" + std::to_string(port) + "/index.html?delay=0.500", "I am the PUT request body");
-        CHECK_EQ(ec, boost::system::errc::timed_out);
+        CHECK_EQ(ec.value(), boost::system::errc::timed_out);
     }
 }
 

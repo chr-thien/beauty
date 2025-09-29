@@ -1,7 +1,10 @@
 #include <beauty/beauty.hpp>
+
+#include <boost/json.hpp>
+#include <boost/json/src.hpp>
+
 #include <chrono>
 #include <iostream>
-#include <nlohmann/json.hpp>
 
 // Health check response structure
 struct health_status {
@@ -9,7 +12,7 @@ struct health_status {
     std::string status{"OK"};
     std::chrono::system_clock::time_point start_time;
     
-    [[nodiscard]] nlohmann::json to_json() const {
+    [[nodiscard]] boost::json::object to_json() const {
         const auto uptime = std::chrono::duration_cast<std::chrono::seconds>(
             std::chrono::system_clock::now() - start_time
         ).count();
@@ -28,13 +31,13 @@ health_status g_health_status{};
 
 // Health check endpoint handler
 void handle_health_check(const beauty::request&, beauty::response& res) {
-    res.set(beauty::content_type::json);
-    res.body() = g_health_status.to_json().dump(2);  // Pretty print with indent=2
+    res.set(beauty::content_type::application_json);
+    res.body() = boost::json::serialize(g_health_status.to_json());
 }
 
 // Detailed health check with components status
 void handle_health_check_detail(const beauty::request&, beauty::response& res) {
-    nlohmann::json detailed_status = g_health_status.to_json();
+    boost::json::object detailed_status = g_health_status.to_json();
     detailed_status["components"] = {
         {"database", {
             {"status", "OK"},
@@ -46,8 +49,8 @@ void handle_health_check_detail(const beauty::request&, beauty::response& res) {
         }}
     };
 
-    res.set(beauty::content_type::json);
-    res.body() = detailed_status.dump(2);
+    res.set(beauty::content_type::application_json);
+    res.body() = boost::json::serialize(detailed_status);
 }
 
 //------------------------------------------------------------------------------

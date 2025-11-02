@@ -61,3 +61,5 @@ foreach(source ${SOURCES})
         )
     endif()
 endforeach()
+
+target_compile_features(beauty_server_swagger PUBLIC cxx_std_20)

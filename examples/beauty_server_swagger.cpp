@@ -69,8 +69,8 @@ int main(int argc, char* argv[])
     });
 
     beauty::route_info param_info = {
-        "Adding two numbers.",
-        {
+        .description = "Adding two numbers.",
+        .route_parameters = {
             {"a", "path", "The first number to add.", "string", "", true},
             {"b", "path", "The second number to add.", "string", "", true}
         },

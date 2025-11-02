@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-#include <optional>
 #include <boost/json.hpp>
 
 namespace beauty

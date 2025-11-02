@@ -354,8 +354,8 @@ automatically for VS2022.
 ```shell
 git clone https://github.com/dfleury2/beauty.git
 cd beauty
-conan install . -o "&:openssl=False" -pr:h vs2019 -pr:b vs2019 -b missing -of build
-cmake -S . -B build --preset conan-release
+conan install . -o "&:openssl=False" -pr vs2022 -b missing -of build/Release
+cmake -S . -B build --preset conan-default
 cmake --build build --config Release
 ```
 

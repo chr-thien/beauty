@@ -11,7 +11,7 @@ required_conan_version = ">=1.53.0"
 class BeautyConan(ConanFile):
     name            = "beauty"
     description     = "HTTP Server above Boost.Beast"
-    version         = "1.0.6"
+    version         = "1.0.7"
     url             = "https://github.com/dfleury2/beauty"
     license         = "MIT"
     settings        = "os", "compiler", "build_type", "arch"

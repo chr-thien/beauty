@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
-set(VERSION 1.0.4)
+set(VERSION 1.0.7)
 
 project(Beauty LANGUAGES CXX VERSION ${VERSION})
 

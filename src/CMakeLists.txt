@@ -125,6 +125,7 @@ elseif(WIN32)
     target_link_libraries(beauty
         PUBLIC
             CRYPT32.LIB
+            Boost::json
     )
 endif()
 

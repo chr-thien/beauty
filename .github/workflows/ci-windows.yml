@@ -44,9 +44,9 @@ jobs:
 
       - name: Install Conan Dependencies
         run: |
-          conan install -r conancenter conanfile.py -o beauty/*:shared=${{ matrix.shared }} -o beauty/*:openssl=${{ matrix.openssl }} -of ${{ github.workspace }} -pr:b msvc-19 -pr:h msvc-19 -s compiler.cppstd=17 --build=missing
+          conan install . -o *:shared=${{ matrix.shared }} -o beauty/*:openssl=${{ matrix.openssl }} -of ${{ github.workspace }}/build -pr:b msvc-19 -pr:h msvc-19 -s compiler.cppstd=17 --build=missing
 
       - name: Build
         run: |
-          cmake -S . -B ${{ github.workspace }}/build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/conan_toolchain.cmake
-          cmake --build ${{ github.workspace }}/build --config Release
+          cmake -S . -B ${{ github.workspace }}/build --preset conan-default
+          cmake --build ${{ github.workspace }}/build --preset conan-release

@@ -4,7 +4,12 @@ on: [pull_request, workflow_dispatch]
 
 jobs:
   ci-windows-msvc-19:
-    name: ci-windows-msvc-19-static-release
+    strategy:
+      matrix:
+        shared: ["False", "True"]
+        openssl: ["False", "True"]
+
+    name: ci-windows-msvc-19-release
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -39,10 +44,9 @@ jobs:
 
       - name: Install Conan Dependencies
         run: |
-          conan install -r conancenter conanfile.py -of ${{ github.workspace }} -pr:b msvc-19 -pr:h msvc-19 -s compiler.cppstd=17 --build=missing
+          conan install -r conancenter conanfile.py -o beauty/*:shared=${{ matrix.shared }} -o beauty/*:openssl=${{ matrix.openssl }} -of ${{ github.workspace }} -pr:b msvc-19 -pr:h msvc-19 -s compiler.cppstd=17 --build=missing
 
       - name: Build
         run: |
-          cmake -S . -B ${{ github.workspace }}/build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/conan_toolchain.cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_CXX_STANDARD=17 -DCMAKE_CXX_COMPILER=cl.exe -DCMAKE_C_COMPILER=cl.exe
+          cmake -S . -B ${{ github.workspace }}/build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/conan_toolchain.cmake
           cmake --build ${{ github.workspace }}/build --config Release
-

@@ -1,7 +1,6 @@
 #include <beauty/server.hpp>
 
 #include <boost/json.hpp>
-#include <boost/json/src.hpp>
 
 namespace beauty
 {

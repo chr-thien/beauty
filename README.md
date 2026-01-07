@@ -359,10 +359,16 @@ cmake -S . -B build --preset conan-default
 cmake --build build --config Release
 ```
 
-The binaries will be created in the `build\examples\Release` directory.cd ..
+The binaries will be created in the `build\examples\Release` directory.
 
-or for Visual Studio 2022. Unfortunately at this time, I did not succeed to compile
-openssl with compiler.version = 17...
+For a Full dynamic compilation without SSL:
 
+```shell
+git clone https://github.com/dfleury2/beauty.git
+cd beauty
+conan install . -o "beauty/*:openssl=False" -o "*:shared=True"-pr vs2022 -b missing -of build
+cmake -S . -B build --preset conan-default
+cmake --build build --config Release
+```
 
 To be improved...

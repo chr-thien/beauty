@@ -106,6 +106,7 @@ target_include_directories(beauty
 target_link_libraries(beauty
     PUBLIC
         Boost::boost
+        Boost::json
 )
 if (BEAUTY_ENABLE_OPENSSL)
     target_link_libraries(beauty
@@ -130,7 +131,6 @@ elseif(WIN32)
     target_link_libraries(beauty
         PUBLIC
             CRYPT32.LIB
-            Boost::json
     )
 endif()
 
